@@ -10,16 +10,17 @@ class ItemModel(db.Model):
     store_id=db.Column(db.Integer, db.ForeignKey('stores.id'))
 
     store=db.relationship('StoreModel')
-    def __init__(self, name, price):
+    def __init__(self, name, price, store_id):
         self.name=name
         self.price=price
+        self.store_id = store_id
 
     def json(self):
         return {'name': self.name, 'price':self.price}
 
 
     @classmethod
-    def find_my_name(cls, name):
+    def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
         
     
@@ -29,5 +30,5 @@ class ItemModel(db.Model):
 
     
     def delete_from_db(self):
-        db.session.deleted(self)
+        db.session.delete(self)
         db.session.commit()

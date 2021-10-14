@@ -16,7 +16,7 @@ class StoreModel(db.Model):
 
 
     @classmethod
-    def find_my_name(cls, name):
+    def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
         
     
@@ -26,5 +26,5 @@ class StoreModel(db.Model):
 
     
     def delete_from_db(self):
-        db.session.deleted(self)
+        db.session.delete(self)
         db.session.commit()
