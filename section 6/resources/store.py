@@ -4,13 +4,13 @@ from models.store import StoreModel
 
 class Store(Resource):
     def get(self, name):
-        item=StoreModel.find_my_name(name)
+        store=StoreModel.find_by_name(name)
         if store:
-            return store.json
+            return store.json()
         return  {'message': 'store not found'}, 404
            
     def post(self, name):
-        if StoreModel.find_my_name(name):
+        if StoreModel.find_by_name(name):
             return {'message': 'a store with {} name already exists'.format(name)}, 400
         
         
